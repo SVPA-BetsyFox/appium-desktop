@@ -39,6 +39,7 @@ export default class Inspector extends Component {
 
   screenshotInteractionChange (mode) {
     const {selectScreenshotInteractionMode, clearSwipeAction} = this.props;
+    console.log(mode, selectScreenshotInteractionMode);
     clearSwipeAction(); // When the action changes, reset the swipe action
     selectScreenshotInteractionMode(mode);
   }
@@ -95,6 +96,11 @@ export default class Inspector extends Component {
         <Tooltip title="Tap By Coordinates">
           <Button icon='scan' onClick={() => {this.screenshotInteractionChange('tap');}}
             type={screenshotInteractionMode === 'tap' ? 'primary' : 'default'}
+          />
+        </Tooltip>
+        <Tooltip title="Send Key Input">
+          <Button icon='code-o' onClick={() => {this.screenshotInteractionChange('keys');}}
+            type={screenshotInteractionMode === 'keys' ? 'primary' : 'default'}
           />
         </Tooltip>
       </ButtonGroup>

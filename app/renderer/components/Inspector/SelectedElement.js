@@ -93,7 +93,7 @@ export default class SelectedElement extends Component {
         <Col>
           <ButtonGroup size="small">
             <Button disabled={!elementId} icon={!elementInteractionsNotAvailable && !elementId && 'loading'} id='btnTapElement' onClick={() => applyClientMethod({methodName: 'click', elementId})}>Tap</Button>
-            <Button disabled={!elementId} id='btnSendKeysToElement' onClick={() => showSendKeysModal()}>Send Keys</Button>
+            <Button id='btnSendKeysToElement' onClick={() => showSendKeysModal()}>Send Keys</Button>
             <Button disabled={!elementId} id='btnClearElement' onClick={() => applyClientMethod({methodName: 'clear', elementId})}>Clear</Button>
           </ButtonGroup>
         </Col>
