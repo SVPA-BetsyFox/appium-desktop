@@ -237,6 +237,20 @@ export function hideSendKeysModal () {
   };
 }
 
+
+export function showDPadModal () {
+  return (dispatch) => {
+    dispatch({type: SHOW_SEND_KEYS_MODAL});
+  };
+}
+
+export function hideDPadModal () {
+  return (dispatch) => {
+    dispatch({type: HIDE_SEND_KEYS_MODAL});
+  };
+}
+
+
 /**
  * Set a value of an arbitrarily named field
  */

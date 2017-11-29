@@ -58,6 +58,17 @@ export default class Screenshot extends Component {
     }
   }
 
+  async handleScreenshotKeyPress (e) {
+    const {applyClientMethod} = this.props;
+    console.log("KEYDOWN EVENT ON SCREENSHOT", e.charCode);
+    await applyClientMethod({
+      methodName: 'sendkeys',
+      args: [e.charCode]
+    });
+    // await B.delay(500); // Wait a second to do the swipe so user can see the SVG line
+  }
+
+
   handleMouseMove (e) {
     const {screenshotInteractionMode} = this.props;
     const {scaleRatio} = this.state;
@@ -122,7 +133,9 @@ export default class Screenshot extends Component {
       }
     }
 
-    const screenImg = <img src={`data:image/gif;base64,${screenshot}`} id="screenshot" />;
+    const screenImg = <img src={`data:image/gif;base64,${screenshot}`} id="screenshot"
+        contentEditable={true}
+        onKeyPress={this.handleScreenshotKeyPress.bind(this)}/>;
 
     // Show the screenshot and highlighter rects. Show loading indicator if a method call is in progress.
     return <Spin size='large' spinning={!!methodCallInProgress}>
@@ -139,6 +152,7 @@ export default class Screenshot extends Component {
           </div>}
           {swipeInstructions && <Tooltip visible={true} placement="top" title={swipeInstructions}>{screenImg}</Tooltip>}
           {!swipeInstructions && screenImg}
+          {screenshotInteractionMode === 'keys' && screenImg }
           {screenshotInteractionMode === 'select' && this.containerEl && <HighlighterRects {...this.props} containerEl={this.containerEl} />}
           {screenshotInteractionMode === 'swipe' &&  
             <svg className={styles.swipeSvg}>
