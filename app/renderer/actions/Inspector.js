@@ -166,6 +166,7 @@ export function unselectElement () {
   };
 }
 
+
 export function selectHoveredElement (path) {
   return (dispatch) => {
     dispatch({type: SELECT_HOVERED_ELEMENT, path});
@@ -378,6 +379,10 @@ export function searchForElement (strategy, selector) {
       showError(error, 10);
     }
   };
+}
+
+export function findRootElement () {
+  searchForElement("xpath", "//*");
 }
 
 export function findAndAssign (strategy, selector, variableName, isArray) {

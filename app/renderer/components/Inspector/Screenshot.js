@@ -59,11 +59,13 @@ export default class Screenshot extends Component {
   }
 
   async handleScreenshotKeyPress (e) {
-    const {applyClientMethod} = this.props;
-    console.log("KEYDOWN EVENT ON SCREENSHOT", e.charCode);
+    const {applyClientMethod, selectElement} = this.props;
+    //TODO: oh god so close.
+    let {elements} = await selectElement("//*");
+    console.log(elements);
     await applyClientMethod({
       methodName: 'sendkeys',
-      args: [e.charCode]
+      args: [String.fromCharCode(e.charCode)]
     });
     // await B.delay(500); // Wait a second to do the swipe so user can see the SVG line
   }
@@ -152,7 +154,6 @@ export default class Screenshot extends Component {
           </div>}
           {swipeInstructions && <Tooltip visible={true} placement="top" title={swipeInstructions}>{screenImg}</Tooltip>}
           {!swipeInstructions && screenImg}
-          {screenshotInteractionMode === 'keys' && screenImg }
           {screenshotInteractionMode === 'select' && this.containerEl && <HighlighterRects {...this.props} containerEl={this.containerEl} />}
           {screenshotInteractionMode === 'swipe' &&  
             <svg className={styles.swipeSvg}>
