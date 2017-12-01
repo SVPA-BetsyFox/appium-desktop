@@ -82,6 +82,8 @@ export default class AppiumMethodHandler {
           .moveTo({x: endX, y: endY})
           .release()
           .perform();
+      } else if (methodName === 'pressKeycode') {
+        this.driver.deviceKeyEvent(...args);
       } else if (methodName !== 'source' && methodName !== 'screenshot') {
         res = await this.driver[methodName].apply(this.driver, args);
       }

@@ -59,15 +59,16 @@ export default class Screenshot extends Component {
   }
 
   async handleScreenshotKeyPress (e) {
-    const {applyClientMethod, selectElement} = this.props;
-    //TODO: oh god so close.
-    let {elements} = await selectElement("//*");
-    console.log(elements);
-    await applyClientMethod({
-      methodName: 'sendkeys',
-      args: [String.fromCharCode(e.charCode)]
-    });
-    // await B.delay(500); // Wait a second to do the swipe so user can see the SVG line
+    e.persist();
+
+    //remap numpad to 8=up, 2=down, 4=left, 6=right, 5=center, enter=newline
+    let mapping = {56:19, 50:20, 52:21, 54:22, 53:23, 10:13};
+    let key = e.charCode in mapping ? mapping[e.charCode] : e.charCode;
+
+    const {searchForElement} = this.props;
+    await searchForElement("xpath", "//*");
+    const {applyClientMethod, locatedElements} = this.props;
+    await applyClientMethod({methodName: 'pressKeycode', args: [key], skipScreenshotAndSource: true});
   }
 
 

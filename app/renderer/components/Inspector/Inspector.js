@@ -39,7 +39,6 @@ export default class Inspector extends Component {
 
   screenshotInteractionChange (mode) {
     const {selectScreenshotInteractionMode, clearSwipeAction} = this.props;
-    console.log(mode, selectScreenshotInteractionMode);
     clearSwipeAction(); // When the action changes, reset the swipe action
     selectScreenshotInteractionMode(mode);
   }
